@@ -2,7 +2,7 @@
   DGS_25SEP17.cpp - Library for reading KWJ Engineering with SPEC Sensors on Digital SDK with firmware date 25SEP17.
   Created by David E. Peaslee, Mar 29, 2018.
 */
-
+#include <SD.h>
 
 #include "DGS.h"
 
@@ -59,10 +59,13 @@ void DGS::DEBUG_PRINT(String x) {
 int DGS::getData(char c) {
   delay(500);
   String dataString;
+ 
   while (_mySerial->available()) _mySerial->read();
   _mySerial->write(c);
   while (!_mySerial->available()) {
-  }
+      _mySerial->write(c);
+    }
+
   dataString = _mySerial->readStringUntil('\n');
   for (int i = 0; i < 11; i++) {
     String subS = dataString.substring(0, dataString.indexOf(','));
@@ -70,6 +73,7 @@ int DGS::getData(char c) {
     dataArray[i] = subS.toInt();
     dataString = dataString.substring(dataString.indexOf(',') + 2);
   }
+
   return 1;
 }
 
