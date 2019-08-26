@@ -2,8 +2,6 @@
   DGS_25SEP17.cpp - Library for reading KWJ Engineering with SPEC Sensors on Digital SDK with firmware date 25SEP17.
   Created by David E. Peaslee, Mar 29, 2018.
 */
-#include <SD.h>
-
 #include "DGS.h"
 
 DGS::DGS(Stream * mySerial) : _mySerial(mySerial) {
